@@ -101,7 +101,18 @@ Now, we discuss about `200 OK`, which is the signal of web server send for us, i
 - **`4xx`** **(Client Error)** Along with `2xx`, this is the signal you will work with the most! When your request don't provide enough information, or you request an unkown or non-existent web page, the server gives you an error. It bassically says: "Oh, this doesn't exist `404 Not Found`" or "You don't have permission `403 Forbidden`"
 - **`5xx`** **(Server Error)** When server processes your request, it has a problem such as backend code crached or database died and send you response `500 Internal Server Error`
 
+### Common HTTP Vulnerabilities
 
+#### Host Header Injection
 
+I mentioned earlier how we can manipulate HTTP headers to take advantage of bad developer configurations. Now, let's dive into *why* this actually works.
+
+In modern web architecture, imagine an admin managing a company website. They want to restrict access to the admin panel so that only internal employees can make changes. To do this, they configure the backend to check the `Host` header. Their logic is simple: *"If the Host header is `localhost` (or our internal domain), it means the request is coming from our own server. Grant them admin access!"*
+
+The developer assumes: *"Only I know this setup, and obviously, only an internal machine would send a `localhost` Host header"*. But this assumption is a massive open door for hackers. We don't need to be inside the company. We just intercept the request, manually inject `Host: localhost`, and send it. If the server implicitly trusts this header without further validation, the response changes completely, and boom—you bypass the restriction!
+
+Yeah, never trust user input. That is the core of **Host Header Injection**.
+
+Talk about Vulnerabilities need a mini lab for you play! I have config it in [this](https://github.com/Shurayz287/WebSec/tree/main/Fundamentals/lab00-HostHeaderInjection), in ctf, i have played with whitebox with source code process localhost is different with comman host!! This is very easy for get flag, bilive me! What you should to know is how to use `curl` or `python` or other tool for get content for the website, and know how to custom `Host` header!! 
 
 
