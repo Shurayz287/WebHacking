@@ -4,7 +4,7 @@ services:
   web:
     build: .
     ports:
-      - "28070:28070"
+      - "28071:28071"
     volumes:
       - .:/server
     restart: always

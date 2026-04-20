@@ -113,6 +113,16 @@ The developer assumes: *"Only I know this setup, and obviously, only an internal
 
 Yeah, never trust user input. That is the core of **Host Header Injection**.
 
-Talk about Vulnerabilities need a mini lab for you play! I have config it in [this](https://github.com/Shurayz287/WebSec/tree/main/Fundamentals/lab00-HostHeaderInjection), in ctf, i have played with whitebox with source code process localhost is different with comman host!! This is very easy for get flag, bilive me! What you should to know is how to use `curl` or `python` or other tool for get content for the website, and know how to custom `Host` header!! 
+Talk about Vulnerabilities need a mini lab for you play! I have config it in [this](https://github.com/Shurayz287/WebSec/tree/main/Fundamentals/lab00-HostHeaderInjection), in ctf, i have played with whitebox with source code process localhost is different with comman host!! This is very easy for get flag, bilive me! What you should to know is how to use `curl` or `python` or other tool for get content for the website, and know how to custom `Host` header!! Another real lab you might consider is [HTTP Host header attacks](https://portswigger.net/web-security/host-header) in PortSwigger. The first two labs are quite basic, you can read the documentation and try them out! 
 
+#### IP Spoofing 
 
+HTTP requests have many headers to indentify where are you from and who you are. In modern architectures, a client's request goes through many intermediate steps, such as routers, proxies, load balancers and firewalls, which can cause the original client's IP to be lost in the process. The `X-Forwarded-For` header is the solution to this problem. For example, if client with private IP `192.168.1.4` makes a request through a proxy with the IP `10.0.0.1`, the header looks like this: 
+```text
+GET / HTTP/1.1
+Host: abc.xyz
+X-Forwarded-For: 192.168.1.4, 10.0.0.1
+```
+If the server trusts header request, a hacker can manipulate it to bypass **rate limits**. For example, I create a server and set a maximum limit of 1 request per second per user to prevent `DDoS` attacks. I configure 2 cases, with the `X-Forwarded-For` header and without it. If request doesn't contain this header, I use `remoteAddress` to identify the user. If the header is present, the server uses the first IP address in the X-Forwarded-For list to identify the origin! Because this header can be manipulated, an attacker can send multiple requests with different spoofed IPs. Now, the server doesn't know who the real user is and fails to limit the requests!
+
+The mini local lab is [here](./lab01-IPSpoofing/) for testing! It is very simple, just helps you know how to add `X-Forwarded-For` header to bypass limitation requests of server. You can play the harder lab with fuzzing in PortSwigger, this is []().

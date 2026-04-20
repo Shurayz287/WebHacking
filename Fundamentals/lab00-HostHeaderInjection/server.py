@@ -2,7 +2,7 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
-FLAG = "shurayz287{y0u_kn0w}"
+FLAG = "shurayz287{h0st_h34der_1nj3ct10n}"
 
 @app.route("/")
 def home():
@@ -11,4 +11,4 @@ def home():
         return FLAG
     return "Welcome to my web page"
 
-app.run(host="0.0.0.0", port=36363)
+app.run(host="0.0.0.0", port=28070)
