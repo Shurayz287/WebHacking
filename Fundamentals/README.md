@@ -32,6 +32,8 @@ Every device connected to the internet has a unique **`IP (Internet Protocol)`**
 
 You already know Domain Names like `abc.xyz.org` or `example.com`. These are much easier for humans to remember than an IPv4 or IPv6 address! But devices don't understand them directly. DNS is the middleman between humans and devices. You type a Domain Name, your computer sends a request to the DNS, and the DNS translates that domain name into an IP address so your device knows exactly where to connect!
 
+![](https://images.viblo.asia/6a1d0cba-1a7e-46b4-b4d1-ec0f232f00d3.jpg)
+
 ### Internet Ports and Protocols
 
 > **Do the Server and Client only use one connection for everything?**
@@ -46,7 +48,7 @@ At each of these doors, the client and server agree to speak a different **`Prot
 
 ## HTTP
 
-**HyperText Transfer Protocol (HTTP)** is the set of rules that specifies how the Server and Client interact with each other! When a Client sends a request, this is an *HTTP request*. The format of this request follows HTTP rules, so the Server will respond via HTTP! The default port for transmitting HTTP is TCP port 80, while the HTTPS (S for Secure) port is **443**. HTTPS encapsulates HTTP within a TLS/SSL (Transport Layer Security / Secure Sockets Layer) tunnel.
+**HyperText Transfer Protocol (HTTP)** is the set of rules that specifies how the Server and Client interact with each other! When a Client sends a request, this is an *HTTP request*. The format of this request follows HTTP rules, so the Server will respond via HTTP! The default port for transmitting HTTP is TCP port **80**, while the HTTPS (S for Secure) port is **443**. HTTPS encapsulates HTTP within a TLS/SSL (Transport Layer Security / Secure Sockets Layer) tunnel.
 
 HTTP is a **stateless** protocol, which means that two requests do not have any relation to each other. For example, when you send a login request with a username and password, and then you send a request to the home page, the web server processes each request individually. So, when you load the home page after logging in, the server actually doesn't know you logged in! This is why mechanisms like **Cookies** are used to remember you. Why do I use this example? Because we usually think, *"Oh, I logged in, so the server knows me and gives me a different page!"* But natively, HTTP has the memory of a goldfish!
 
@@ -126,3 +128,39 @@ X-Forwarded-For: 192.168.1.4, 10.0.0.1
 If the server trusts header request, a hacker can manipulate it to bypass **rate limits**. For example, I create a server and set a maximum limit of 1 request per second per user to prevent `DDoS` attacks. I configure 2 cases, with the `X-Forwarded-For` header and without it. If request doesn't contain this header, I use `remoteAddress` to identify the user. If the header is present, the server uses the first IP address in the X-Forwarded-For list to identify the origin! Because this header can be manipulated, an attacker can send multiple requests with different spoofed IPs. Now, the server doesn't know who the real user is and fails to limit the requests!
 
 A mini local lab is available [here](./lab01-IPSpoofing/) for testing! It is very simple and just helps you understand how to inject the `X-Forwarded-For` header to bypass the server's rate limits. You can practice with a harder lab using fuzzing on PortSwigger [here]().
+
+## Data Transfer in the Web
+
+
+
+### Encoding / Decoding
+
+### Content-Type
+
+### Query, Path, Body and Header
+
+### HTTP wire format
+
+### Injection
+
+## Browser and State
+
+### Cookie and Session
+
+### LocalStorage
+
+### SOP and CORS
+
+### Attack via Browser 
+
+## Modern Web Architecture
+
+### REST API
+
+### Server Side and Client Side
+
+### Auth, JWT token
+
+## Web Security and Safe code
+
+## OSWAP
